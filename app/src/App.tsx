@@ -1,19 +1,27 @@
 import { useState } from "react";
 import styles from "./App.module.css";
-import poweredImg from "./assets/images/powered.png";
-import { levels } from "./data/services/imc";
+import poweredImage from "./assets/images/powered.png";
+import leftArrowImage from "./assets/images/leftarrow.png";
+import { levels, calculateImc, Levels } from "./data/services/imc";
 import { GridItem } from "./ui/components/data-display/GridItem/GridItem";
 
 export default function App() {
     const [heightField, setHeightField] = useState<number>(0);
     const [weightField, setWeightField] = useState<number>(0);
+    const [toShowLevel, setToShowLevel] = useState<Levels | null>(null);
 
     function handleCalculateButton() {
         if (heightField && weightField) {
-            return true;
+            setToShowLevel(calculateImc(heightField, weightField));
         } else {
             alert("Preencha todos os campos!");
         }
+    }
+
+    function handlePrevButton(){
+        setHeightField(0);
+        setWeightField(0);
+        setToShowLevel(null);
     }
 
     return (
@@ -21,7 +29,7 @@ export default function App() {
             <header>
                 <div className={styles.headerContainer}>
                     <img
-                        src={poweredImg}
+                        src={poweredImage}
                         alt={"IMC - Powered by Leonardo Dvulatk"}
                         width={150}
                     />
@@ -58,13 +66,22 @@ export default function App() {
                     <button onClick={handleCalculateButton}>Calcular</button>
                 </div>
                 <div className={styles.rightSide}>
-                    <div className={styles.grid}>
-                        {
-                            levels.map((level, index) => (
-                                <GridItem key={index} level={level}/>
-                            ))
-                        }
-                    </div>
+                    {!toShowLevel && (
+                        <div className={styles.grid}>
+                            {levels.map((level, index) => (
+                                <GridItem key={index} level={level} />
+                            ))}
+                        </div>
+                    )}
+
+                    {toShowLevel && (
+                        <div className={styles.rightBig}>
+                            <div className={styles.btnPrev} onClick={handlePrevButton}>
+                                <img src={leftArrowImage} width={25}/>
+                            </div>
+                            <GridItem level={toShowLevel} />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

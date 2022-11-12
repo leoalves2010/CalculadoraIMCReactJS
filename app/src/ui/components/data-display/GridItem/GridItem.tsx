@@ -18,9 +18,15 @@ export function GridItem({ level }: Props) {
                 />
             </div>
             <div className={styles.gridTitle}>{level.title}</div>
+            {level.yourImc && (
+                <div className={styles.yourImc}>
+                    Seu IMC é de {level.yourImc} kg/m²
+                </div>
+            )}
             <div className={styles.gridInfo}>
                 <>
-                    IMC está entre <strong>{level.imc[0]}</strong> e <strong>{level.imc[1]}</strong>
+                    IMC está entre <strong>{level.imc[0]}</strong> e{" "}
+                    <strong>{level.imc[1]}</strong>
                 </>
             </div>
         </div>
