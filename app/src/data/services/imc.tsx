@@ -1,4 +1,4 @@
-type Levels = {
+export type Levels = {
     title: string;
     color: string;
     icon: "down" | "up";
