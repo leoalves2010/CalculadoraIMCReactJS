@@ -49,6 +49,7 @@ export default function App() {
                             "Digite a sua altura. Ex.: 1.5 (em metros)"
                         }
                         step={0.1}
+                        disabled={toShowLevel ? true : false}
                         value={heightField > 0 ? heightField : ""}
                         onChange={(e) =>
                             setHeightField(parseFloat(e.target.value))
@@ -58,12 +59,13 @@ export default function App() {
                         type={"number"}
                         placeholder={"Digite o seu peso. Ex.: 75.3 (em kg)"}
                         step={0.1}
+                        disabled={toShowLevel ? true : false}
                         value={weightField > 0 ? weightField : ""}
                         onChange={(e) =>
                             setWeightField(parseFloat(e.target.value))
                         }
                     />
-                    <button onClick={handleCalculateButton}>Calcular</button>
+                    <button onClick={handleCalculateButton} disabled={toShowLevel ? true : false}>Calcular</button>
                 </div>
                 <div className={styles.rightSide}>
                     {!toShowLevel && (
